@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>NYC Diversity Map</title>
+	<meta name="NYC Diversity Map" content="">
+	<meta name="Antt Moelsae" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+
+
+
+    <!-- CSS
+  ================================================== -->
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script src="js/script.js"></script>
+
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/am-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/am-icon-72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/am-icon-114.png">
+
+</head>
+<body>
+
+
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<header id="header" class="site-header" role="banner">
+    <div id="header-inner" class="container sixteen columns over">
+    <hgroup class="one-third column alpha">
+			<div>
+		<h1 id="site-title" class="site-title">
+		<a href="index.html"><img src="images/logo.png" alt="logo" style="float: left; position:absolute"></a>
+			</h1>
+		</div>
+    </hgroup>
+
+    <nav id="main-nav" class="two thirds column omega">
+    <ul id="main-nav-menu" class="nav-menu">
+    <li id="menu-item-1">
+    <a href="index.html">Diversity Map</a>
+    </li>
+    <li id="menu-item-2">
+    <a href="diversity_index.html">About Diversity Index</a>
+    </li>
+    <li id="menu-item-3">
+    <a href="author.html">About Author</a>
+    </li>
+    </ul>
+    </nav>
+    </div>
+    </header>
+
+	<div class="container">
+
+        <article class="sixteen columns main-content">
+        <h1>NYC Diversity</h1>
+
+<div style="position:relative;">
+<iframe id="map" src="Map/indexInc.html" style="position: relative; height: 600px; width: 100%; border: none" allowfullscreen></iframe>
+<SELECT style="position:absolute; top:5px; right:20px; width:150px; opacity:0.7; border-radius:4px;border:1px; background:#fff"  ;NAME="options" ONCHANGE="document.getElementById('map').src = this.options[this.selectedIndex].value">
+<option value="Map/indexInc.html">Income Diversity</option>
+<option value="Map/indexRace.html">Ethnoracial Diversity</option>
+<option value="Map/indexComp.html">Composite Diversity</option>
+</SELECT>
+
+</div>
+
+
+
+
+
+
+<!-- CUSTOM DROPDOWN: <div id="dd" class="wrapper-dropdown-3" tabindex="1" >
+						<span>&nbsp;Year&nbsp;</span>
+						<ul class="dropdown"><br>
+							<li><a href="Map/index00.html">&nbsp; &nbsp; 2000</a></li>
+							<li><a href="Map/index09.html">&nbsp; &nbsp; 2009</a></li>
+							<li><a href="Map/index14.html">&nbsp; &nbsp; 2014</a></li>
+						</ul>
+					</div> -->
+
+
+
+<br><p>This map shows three different measures of diversity (income, ethnoracial and composite diversity) for three years (2000, 2009 and 2014). You can find more about the index and methodology by clicking in the menu.</p>
+
+
+
+        </article>
+        <!-- End main Content -->
+
+
+    </div>
+</div>
+<footer>
+
+<div class="footer-inner container">
+<div id="footer-base">
+<div class="container">
+<div class="eight columns">
+Frame built on top of <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
+</div>
+
+<div class="eight columns far-edge">Antti Moelsae &copy; 2016
+</div>
+</div>
+</div>
+
+</footer>
+
+<!-- End Document
+================================================== -->
+
+<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>

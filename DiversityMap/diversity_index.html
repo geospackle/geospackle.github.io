@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>About Diversity Index</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+
+
+
+    <!-- CSS
+  ================================================== -->
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script src="js/scripts.js"></script>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+<body>
+
+
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<header id="header" class="site-header" role="banner">
+    <div id="header-inner" class="container sixteen columns over">
+    <hgroup class="one-third column alpha">
+			<div>
+		<h1 id="site-title" class="site-title">
+		<a href="index.html"><img src="images/logo.png" alt="logo" style="float: left; position:absolute"></a>
+			</h1>
+		</div>
+    </hgroup>
+    <nav id="main-nav" class="two thirds column omega">
+    <ul id="main-nav-menu" class="nav-menu">
+    <li id="menu-item-1">
+    <a href="index.html">Diversity Map</a>
+    </li>
+    <li id="menu-item-2">
+    <a href="diversity_index.html">About Diversity Index</a>
+    </li>
+    <li id="menu-item-3">
+    <a href="author.html">About Author</a>
+    </li>
+    </ul>
+    </nav>
+    </div>
+    </header>
+
+	<div class="container">
+
+        <article class="sixteen columns main-content">
+        <h1>How the Diversity Indicies Were Built</h1>
+
+        <p>A diversity index measures the evenness of distribution within a population. The diversity indices here are based on <a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Shannon entropy</a>. Three indices were calculated based on data from the 2000 U.S. Census, 2009 American Community Survey, and 2014 American Community Survey. The index values are between 0 and 1, the value 1 representing an absoutely even distribution. The ethnoracial diversity index measures evenness of the categories "Asian", "Black", "Hispanic", "White" and "Other" within the population of each census tract square. The income diversity index measuers evenness of (adjusted) household income in categories "$19,999 and below", "$20,000 - $39,999", "$40,000 - $74,999", "$75,000 - $124,999", "$125,000 and above" within the population of each census tract square. Finally, a composite diversity index was calculated as the mean of normalized values of the ethnoracial and income diversity indices.<p>
+
+<p>The Shannon entropy index is calculated as follows:</p>
+<p><img src="images/shannon.svg" align="top"></p>
+<p>Generally the unit of entropy is called shannon if <em>b</em>=2, nat if <em>b</em>=<em>e</em>, or hartley if <em>b</em>=10. To simplify thigs considerably, it was decided to use the number of categories as the base of the logarithm (<em>b</em>=5 for both indices). This yields a result between 0 and 1, simplifying comparison and the calculation of a composite index considerably.<p>
+
+<p>The composite index is the mean of the normalized income diversity index and the ethnoracial diversity index. Normalizing the income data in order to build the composite index proved challenging since the income data is heavily "left-skewed" (meaning that the mass of the distribution is concentrated on the right side of a frequency plot). The composite diversity index is thus offers a balanced representation of both the income and ethnoracial indexes, which showed quite significant geographical distributions.</p>
+
+<p>Also LISA clusters were added as overlays to the map. For simplicitys sake only "High-High" and "Low-Low" clusters are shown. These are clusters where a census tract with a high (low) value is surrounded by other high (low) census tracts.</p>
+
+
+     </article>
+        <!-- End main Content -->
+
+
+    </div>
+
+<footer>
+
+<div class="footer-inner container">
+<div id="footer-base">
+<div class="container">
+<div class="eight columns">
+Design based on <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
+</div>
+
+<div class="eight columns far-edge">Antti Moelsae &copy; 2016
+</div>
+</div>
+</div>
+
+</footer>
+
+<!-- End Document
+================================================== -->
+
+<script src="js/jquery.prettyPhoto.js"></script>
+</body>
+</html>
