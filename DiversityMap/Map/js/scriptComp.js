@@ -178,7 +178,7 @@ function createLayerControls(){
   var div = L.DomUtil.create('div', 'legend'),
         grades = [0, 0.25, 0.40, 0.50, 0.60, 0.70]
 
-        div.innerHTML += '<p>Diversity Index<br>(squared)</p>';
+        div.innerHTML += '<p>Diversity Index</p>';
 
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=

@@ -180,7 +180,7 @@ legend.onAdd = function (map) {
   var div = L.DomUtil.create('div', 'legend'),
         grades = [0, 0.25, 0.50, 0.70, 0.80, 0.90]
 
-        div.innerHTML += '<p>Diversity Index</p>';
+        div.innerHTML += '<p>Diversity Index<br>(squared)</p>';
 
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
