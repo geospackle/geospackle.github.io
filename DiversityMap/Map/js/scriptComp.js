@@ -157,29 +157,78 @@ function createLayerControls(){
     };
 
     var overlayMaps = {
+         "LISA 2000": LISAComp00,
+         "LISA 2009": LISAComp09,
+         "LISA 2014": LISAComp14,
+
+
 
     };
 
-    L.control.layers(baseMaps, null, {collapsed: false}).addTo(map);
+    L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
 
-}
+  }
 
-var legend = L.control({position: 'bottomright'});
 
-legend.onAdd = function (map) {
+
+  var legend = L.control({position: 'bottomright'});
+
+  legend.onAdd = function (map) {
 
   var div = L.DomUtil.create('div', 'legend'),
-        amounts = [0, 0.25, 0.40, 0.50, 0.60, 0.70];
+        grades = [0, 0.25, 0.50, 0.70, 0.80, 0.90]
 
-        div.innerHTML += '<p>Diversity Index</p>';
+        div.innerHTML += '<p>Diversity Index<br>(squared)</p>';
 
-        for (var i = 0; i < amounts.length; i++) {
+        for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
-                '<i style="background:' + fillColorPercentage(amounts[i] + 0.01) + '"></i> ' +
-                amounts[i] + (amounts[i + 0.01] ? + amounts[i + 0.01] + '<br />' : '<br />');
+                '<i style="background:' + fillColorPercentage(grades[i] + 0.01) + '"></i> ' +
+                grades[i] + (grades[i + 0.01] ? + grades[i + 0.01] + '<br />' : '<br />');
         }
 
   return div;
-};
+  };
 
-legend.addTo(map);
+  legend.addTo(map);
+
+  function getColor(g) {
+     switch(g) {
+         case 1: return "#ff0000";
+         case 2: return "#0000ff";
+     }
+  };
+
+  var Legend = L.control({position: 'bottomright'});
+
+  Legend.onAdd = function (map) {
+     var legdiv = L.DomUtil.create('div', 'legend'),
+         categories = [1, 2],
+         labels = ['High-High', 'Low-Low',];
+
+  legdiv.innerHTML += '<p>LISA Clusters</p>';
+
+     for (var i = 0; i < categories.length; i++) {
+         legdiv.innerHTML +=
+             '<i style="background:' + getColor(categories[i]) + '"></i> ' + (categories[i] ? labels[i] + '<br>' : '+');
+     }
+     return legdiv;
+  };
+  Legend.addTo(map);
+
+  map.createPane('imagePane');
+  map.getPane('imagePane').style.zIndex = 401;
+  var LISAComp14 = L.imageOverlay("data/LISAComp14.png", [[40.4768, -74.341], [40.9255, -73.706]],{
+  pane: 'imagePane'
+  });
+  var LISAComp09 = L.imageOverlay("data/LISAComp09.png", [[40.4768, -74.341], [40.9255, -73.706]],{
+  pane: 'imagePane'
+  });
+  var LISAComp00 = L.imageOverlay("data/LISAComp00.png", [[40.4768, -74.341], [40.9255, -73.706]],{
+  pane: 'imagePane'
+  });
+
+
+
+  LISAComp00.setOpacity(0.7);
+  LISAComp14.setOpacity(0.7);
+  LISAComp09.setOpacity(0.7);

@@ -219,13 +219,13 @@ function getColor(g) {
 
  map.createPane('imagePane');
  map.getPane('imagePane').style.zIndex = 401;
- var LISAInc14 = L.imageOverlay("data/LISAInc14.png", [[40.4956, -74.273], [40.9136, -73.683]],{
+ var LISAInc14 = L.imageOverlay("data/LISAInc14.png", [[40.4768, -74.341], [40.9255, -73.706]],{
   pane: 'imagePane'
 });
- var LISAInc09 = L.imageOverlay("data/LISAInc09.png", [[40.4956, -74.273], [40.9136, -73.683]],{
+ var LISAInc09 = L.imageOverlay("data/LISAInc09.png", [[40.4768, -74.341], [40.9255, -73.706]],{
   pane: 'imagePane'
 });
- var LISAInc00 = L.imageOverlay("data/LISAInc00.png", [[40.4956, -74.273], [40.9136, -73.683]],{
+ var LISAInc00 = L.imageOverlay("data/LISAInc00.png", [[40.4768, -74.341], [40.9255, -73.706]],{
   pane: 'imagePane'
 });
 
