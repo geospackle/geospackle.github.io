@@ -176,7 +176,7 @@ function createLayerControls(){
   legend.onAdd = function (map) {
 
   var div = L.DomUtil.create('div', 'legend'),
-        grades = [0, 0.25, 0.50, 0.70, 0.80, 0.90]
+        grades = [0, 0.25, 0.40, 0.50, 0.60, 0.70]
 
         div.innerHTML += '<p>Diversity Index<br>(squared)</p>';
 
