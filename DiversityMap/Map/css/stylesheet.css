@@ -1,7 +1,8 @@
 
 
 .legend {
-	line-height: 18px;
+	  top: 40px;
+	  line-height: 18px;
     padding: 6px 8px;
     background: white;
     background: rgba(255,255,255,0.8);
@@ -17,6 +18,40 @@
     opacity: 0.7;
 }
 
+.slider{
+	width: 350px;
+	background-color: #f222;
+	position: relative;
+}
+
+.overlay {
+	position:absolute;
+	top:10px;
+	left:100px;
+	background-color:white;
+	width:350px;
+	height:90px;
+	border-radius: 5px;
+	opacity: 0.8;
+	z-index: 100
+}
+
+/*
+.slider {
+		background-color: transparent;
+	  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+		position: relative;
+		width: 220px;
+    height: ;
+		top: 0;
+		left: 0;
+		padding: 10px;
+    background-color: #f222;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+*/
 
 body {
     padding: 0;
@@ -28,18 +63,45 @@ html, body, #map {
 }
 
 
-.leaflet-control-layers{ 
+.leaflet-control-layers{
     width:auto;
     top: 35px;
 opacity: 0.7;
- 
+
     text-decoration:none;}
 
+#play, #clock {
+position: absolute;
+top: 15px;
+z-index: 100;
+ }
+ #play {
+	 left: 80px;
+ }
+ #clock {
+	 right: 80px;
+ }
 
+/* https://css-tricks.com/making-pure-css-playpause-button/*/
 
-
-
-
-
-
-
+ .button {
+	 margin-left: 50px;
+	 margin-top: 10px;
+   border: 0;
+   background: transparent;
+   box-sizing: border-box;
+   width: 0;
+   height: 30px;
+   border-color: transparent transparent transparent #202020;
+   transition: 100ms all ease;
+   cursor: pointer;
+   border-style: solid;
+   border-width: 20px 0 20px 30px;
+ }
+ .button.paused {
+   border-style: double;
+   border-width: 0px 0 0px 30px;
+ }
+ .button:hover {
+   border-color: transparent transparent transparent #404040;
+ }
