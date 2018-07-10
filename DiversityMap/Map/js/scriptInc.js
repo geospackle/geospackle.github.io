@@ -1,236 +1,268 @@
-
-
 var map = L.map('map').setView([40.719190, -73.996589], 11);
-
 var CartoDBTiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',{
-  attribution: 'Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+  attribution: 'Map Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors, Map Tiles &copy; <a href="http://cartodb.com/attributions">CartoDB</a>, Slider by <a href="https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518">John Walley</a>, Play button by <a href="https://css-tricks.com/making-pure-css-playpause-button/">Daniel Abdilla</a>'
 });
-
-
 
 map.addLayer(CartoDBTiles);
 
+//http://www.d3noob.org/2014/03/leafletjs-map-with-d3js-objects-that.html
+//http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/
+// Add an SVG element to Leaflet’s overlay pane
+  var svg = d3.select(map.getPanes().overlayPane).append("svg");
 
+  var g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
-$.getJSON( "data/AllDiversity_Web.geojson", function( data ) {
-    var dataset = data;
-
-    plotDataset(dataset);
-
-});
-
-function plotDataset(dataset) {
-     IEnt00Sq = L.geoJson(dataset, {
-        style: incStyle00,
-        onEachFeature: incOnEachFeature00
-    }).addTo(map);
-
-    IEnt09Sq = L.geoJson(dataset, {
-        style: incStyle09,
-        onEachFeature: incOnEachFeature09
-    }).addTo(map);
-
-    IEnt14Sq = L.geoJson(dataset, {
-        style: incStyle14,
-        onEachFeature: incOnEachFeature14
-    }).addTo(map);
+  var LISA10 = d3.map();  //tsv gets read into this map
+  var LISA11 = d3.map();  //tsv gets read into this map
+  var LISA12 = d3.map();  //tsv gets read into this map
+  var LISA13 = d3.map();  //tsv gets read into this map
+  var LISA14 = d3.map();  //tsv gets read into this map
+  var LISA15 = d3.map();  //tsv gets read into this map
+  var LISA16 = d3.map();  //tsv gets read into this map
 
 
 
 
-createLayerControls();
+
+
+queue()
+    .defer(d3.json, "data/NYC_tracts_4326.json")
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA10.set(d.BoroCT2010, +d.IE10_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA11.set(d.BoroCT2010, +d.IE11_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA12.set(d.BoroCT2010, +d.IE12_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA13.set(d.BoroCT2010, +d.IE13_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA14.set(d.BoroCT2010, +d.IE14_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA15.set(d.BoroCT2010, +d.IE15_Quad); })
+    .defer(d3.csv, "data/allLISA_noparks.csv", function(d) { LISA16.set(d.BoroCT2010, +d.IE16_Quad); })
+
+
+    .await(ready);
+
+var LISAarray = [LISA10, LISA11, LISA12, LISA13, LISA14, LISA15, LISA16];
+var yearArray = [2010, 2011, 2012, 2013, 2014, 2015, 2016];
+var arrayLength = LISAarray.length;
+  var iter = 0;
+  var playing = false;
+  d3.select('#clock').html(yearArray[iter]);
+  //  create a d3.geo.path to convert GeoJSON to SVG
+
+
+
+
+
+    var btn = $(".button");
+//    btn.click(function() {
+//      btn.toggleClass("paused");
+//    });
+
+function switch_button () {
+btn.toggleClass("paused");
+    }
+
+
+  function ready (error, geoShape) {
+    var transform = d3.geo.transform({point: projectPoint}),    //d3 v4 does not have transform
+        path = d3.geo.path().projection(transform);
+
+  // create path elements for each of the features
+  map.on("viewreset", reset);
+  map.on("zoom", reset);
+
+   // initialize the path data
+//loopthis();
+
+reset(); //this reprojects map
+/*
+var slider = document.getElementById("slider");
+var output = document.getElementById("clock");
+output.innerHTML = slider.value;
+slider.oninput = function() {
+output.innerHTML = this.value;
+iter = this.value-2010;
+reset();
+};
+*/
+
+
+// needs to be on top
+var slider3 = d3.sliderHorizontal()    // https://bl.ocks.org/johnwalley/e1d256b81e51da68f7feb632a53c3518
+  .min(d3.min(yearArray))
+  .max(d3.max(yearArray))
+//  .step(1)
+  .width(200)
+  .tickFormat(d3.format(''))
+  .marks(yearArray)
+  .ticks(5)
+//  .tickValues(yearArray)
+  .on('onchange', val => {
+    d3.select("p#value3").text(d3.format('')(val));  // gets value of slider
+    iter = yearArray.indexOf(val); //sets value for reset function
+    reset();
+  });
+
+var d = d3.select("div#overlay").append("svg")
+  .attr("width", 500)
+  .attr("height", 100)
+  .append("g")
+  .attr("transform", "translate(100,30)");
+
+d.call(slider3);
+
+
+/*
+
+// creates SVG object
+var control = L.control();
+control.onAdd = function(map){
+    this.svg = L.SVG.create("svg","test");
+    this.svg.setAttribute("style","height:100px;width:100px;background:white");
+//        this.svg +=
+         return this.svg;
+
+};
+*/
+
+
+
+//     d3.select("p#value3").text(d3.timeFormat('%Y')(slider3.value()));
+//   d3.select("a#setValue3").on("click", () => slider3.value(new Date(1997, 11, 17)));
+
+// https://scottiestech.info/2014/07/01/javascript-fun-looping-with-a-delay/
+
+var startiter = arrayLength+1;
+var timer;  // create timer object
+  d3.select('#play')
+    .on('click', function () {
+      if(playing == false) {
+      timeout(startiter);   //to start where stopped FIX - first iteration passes code to end -1
+//      d3.select(this).html('stop');
+      playing = true;
+      switch_button();
+    } else {    // else if is currently playing
+          clearTimeout(timer);   // stop the animation by clearing the interval
+    //      d3.select(this).html('play');   // change the button label to play
+          playing = false;   // change the status again
+          switch_button();
+//      clearTimeout(timer);
 }
-
-
-
-var incStyle00 = function (feature, latlng) {
-
-    var style = {
-        weight: 1,
-        opacity: .25,
-        color: 'grey',
-        fillOpacity: fillOpacity(feature.properties.IEnt00Sq),
-        fillColor: fillColorPercentage(feature.properties.IEnt00Sq)
-    };
-
-    return style;
-
-}
-
-var incStyle09 = function (feature, latlng) {
-
-    var style = {
-        weight: 1,
-        opacity: .25,
-        color: 'grey',
-        fillOpacity: fillOpacity(feature.properties.IEnt09Sq),
-        fillColor: fillColorPercentage(feature.properties.IEnt09Sq)
-    };
-
-    return style;
-
-}
-
-var incStyle14 = function (feature, latlng) {
-
-    var style = {
-        weight: 1,
-        opacity: .25,
-        color: 'grey',
-        fillOpacity: fillOpacity(feature.properties.IEnt14Sq),
-        fillColor: fillColorPercentage(feature.properties.IEnt14Sq)
-    };
-
-    return style;
-
-}
-
-
-
-
-
-
-function fillColorPercentage(d) {
-    return  d == 'High' ? '#0000ff' :
-            d == 'Low' ? '#ff0000' :
-            d > 0.90 ? '#006d2c' :
-           d > 0.80 ? '#31a354' :
-           d > 0.70 ? '#74c476' :
-           d > 0.50 ? '#a1d99b' :
-           d > 0.25 ? '#c7e9c0' :
-                   '#edf8e9';
-}
-
-function fillOpacity(d) {
-    return d == 0 ? '#808080' :
-                    0.75;
-}
-
-var popup = new L.Popup();
-
- var incOnEachFeature00 = function(feature,layer){
-
-  layer.on("click", function (e) {
-       var bounds = layer.getBounds();
-        var popupContent = "<strong>Diversity:</strong> " + feature.properties.IEnt00Sq +  "<br /><strong>Asian:</strong> " + (feature.properties.Asian00*100).toFixed(1) +" %" + "<br /><strong>Black:</strong> " + (feature.properties.Black00 *100).toFixed(1) +" %"+ "<br /><strong>Hispanic:</strong> "+ (feature.properties.Hispanic00*100).toFixed(1) +" %" + "<br /><strong>White:</strong> " + (feature.properties.White00*100).toFixed(1) +" %"+ "<br /><strong>Other:</strong> " + (feature.properties.Other00*100).toFixed(1) +" %";
-        popup.setLatLng(bounds.getCenter());
-        popup.setContent(popupContent);
-        map.openPopup(popup);
     });
 
 
+function timeout (i) {
+    timer = setTimeout(function () {
+      if (i>1) {
+        timeout(i);
+            iter = arrayLength-i;
+            d3.select("#overlay")  //inputs value to slider
+              .call(slider3);
+              slider3.value(yearArray[iter]);
+//            $("#slider").val(iter+2010);
+//            $("#slider").trigger('change');
+            startiter = i;            // because skips first loop - otherwise i-1
+        d3.select('#clock').html(yearArray[iter]);
+        console.log(yearArray[iter]);
+        reset(iter);
+        // Call the loop again, and pass it the current value of i
+      } else {    // else if is currently playing
+        timeout(i);
+            iter = arrayLength-i;
+            d3.select("#overlay")
+              .call(slider3);
+              slider3.value(yearArray[iter]);
+  //          $("#overlay").val(iter+2010);     // adjust slider
+  //          $("#overlay").trigger('change');
+            d3.select('#clock').html(yearArray[iter]);
+            reset(iter);
+  //          d3.select('#play').html('play');   // change the button label to play
+            playing = false;   // change the status again
+            switch_button();
+            clearTimeout(timer);   // stop the animation by clearing the interval
+            startiter = arrayLength+1;
+
+  }
+// infinite loop
+//      else {
+//        i=7;
+//        timeout(i);
+//        iter = arrayLength-i;
+//        d3.select('#clock').html(yearArray[iter]);
+//      }
+
+    }, 2000);
+  i = i-1;
+  }
+
+  // fit the SVG element to leaflet's map layer https://gist.github.com/d3noob/9211665
+  function reset() {
+
+   bounds = path.bounds(geoShape);
+
+   var topLeft = bounds[0],
+    bottomRight = bounds[1];
+
+   svg .attr("width", bottomRight[0] - topLeft[0])
+    .attr("height", bottomRight[1] - topLeft[1])
+    .style("left", topLeft[0] + "px")
+    .style("top", topLeft[1] + "px");
+
+   g .attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+   svg.selectAll("path").remove();  // added this, I think it nulls the svg so it can be drawn again with current properties, the tutorial didn't have data attached
+
+// NEEDS TO REDRAW D3_FEATURES HERE!!!!
+  var dataset  = LISAarray[iter];     // needs to be defined within function
+    d3_features = g.selectAll("path");
+
+   d3_features
+   .data(geoShape.features)
+   .enter().append("path")
+   .style("fill-opacity", 0.7)
+ //  .transition()
+ //  .duration(2000)
+ //    .attr("fill", function(d) { return fillColor(d.RE10_Quad = LISA10.get(d.BoroCT2010)); }) //.get returns element from map object
+   .attr("fill", function(d) { return fillColor(dataset.get(d.properties.BoroCT2010)); }) //.get returns element from map object
+   .attr("d", path);
+
+}
 }
 
-var incOnEachFeature09 = function(feature,layer){
+//for (var i = 0; i < arrayLength; i++) {
+//  loop(i);}
 
- layer.on("click", function (e) {
-      var bounds = layer.getBounds();
-       var popupContent = "<strong>Diversity:</strong> " + feature.properties.IEnt09Sq +  "<br /><strong>Asian:</strong> " + (feature.properties.Asian09 *100).toFixed(1) +" %" + "<br /><strong>Black:</strong> " + (feature.properties.Black09 *100).toFixed(1) +" %"+ "<br /><strong>Hispanic:</strong> "+ (feature.properties.Hispanic09*100).toFixed(1) +" %" + "<br /><strong>White:</strong> " + (feature.properties.White09*100).toFixed(1) +" %"+ "<br /><strong>Other:</strong> " + (feature.properties.Other09*100).toFixed(1) +" %";
-       popup.setLatLng(bounds.getCenter());
-       popup.setContent(popupContent);
-       map.openPopup(popup);
-   });
+    function fillColor(c) {
+        return c == 1 ? '#ff0000' :
+            //   c == 2 ? '#ff66cc' :
+               c == 3 ? '#000099' :
+            //   c == 4 ? '#3399ff' :
+               c == 0 ? 'none' :
+                       '#edf8e9';
+    }
 
+  // Use Leaflet to implement a D3 geometric transformation.
+  function projectPoint(x, y) {
+   var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+   this.stream.point(point.x, point.y);
+  }
 
-}
+  function getColor(g) {
+       switch(g) {
+           case 1: return "#ff0000";
+           case 2: return "#0000ff";
+       }
+   };
 
-var incOnEachFeature14 = function(feature,layer){
+   var Legend = L.control({position: 'topright'});
 
- layer.on("click", function (e) {
-      var bounds = layer.getBounds();
-       var popupContent = "<strong>Diversity:</strong> " + feature.properties.IEnt14Sq +  "<br /><strong>Asian:</strong> " + (feature.properties.Asian14 *100).toFixed(1) +" %" + "<br /><strong>Black:</strong> " + (feature.properties.Black14 *100).toFixed(1) +" %"+ "<br /><strong>Hispanic:</strong> "+ (feature.properties.Hispanic14*100).toFixed(1) +" %" + "<br /><strong>White:</strong> " + (feature.properties.White14*100).toFixed(1) +" %"+ "<br /><strong>Other:</strong> " + (feature.properties.Other14*100).toFixed(1) +" %";
-       popup.setLatLng(bounds.getCenter());
-       popup.setContent(popupContent);
-       map.openPopup(popup);
-   });
+   Legend.onAdd = function (map) {
+       var legdiv = L.DomUtil.create('div', 'legend'),
+           categories = [1, 2],
+           labels = ['High-High', 'Low-Low',];
 
+    legdiv.innerHTML += '<p>LISA Clusters</p>';
 
-}
-
-
-function createLayerControls(){
-
- var baseMaps = {
-   "2000": IEnt00Sq,
-   "2009": IEnt09Sq,
-   "2014": IEnt14Sq,
-
-
-    };
-
-    var overlayMaps = {
-         "LISA 2000": LISAInc00,
-         "LISA 2009": LISAInc09,
-         "LISA 2014": LISAInc14,
-
-
-
-    };
-
-    L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map);
-
-}
-
-
-
-var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-
-  var div = L.DomUtil.create('div', 'legend'),
-        grades = [0, 0.25, 0.50, 0.70, 0.80, 0.90]
-
-        div.innerHTML += '<p>Diversity Index<br>(squared)</p>';
-
-        for (var i = 0; i < grades.length; i++) {
-            div.innerHTML +=
-                '<i style="background:' + fillColorPercentage(grades[i] + 0.01) + '"></i> ' +
-                grades[i] + (grades[i + 0.01] ? + grades[i + 0.01] + '<br />' : '<br />');
-        }
-
-  return div;
-};
-
-legend.addTo(map);
-
-function getColor(g) {
-     switch(g) {
-         case 1: return "#ff0000";
-         case 2: return "#0000ff";
-     }
- };
-
- var Legend = L.control({position: 'bottomright'});
-
- Legend.onAdd = function (map) {
-     var legdiv = L.DomUtil.create('div', 'legend'),
-         categories = [1, 2],
-         labels = ['High-High', 'Low-Low',];
-
-  legdiv.innerHTML += '<p>LISA Clusters</p>';
-
-     for (var i = 0; i < categories.length; i++) {
-         legdiv.innerHTML +=
-             '<i style="background:' + getColor(categories[i]) + '"></i> ' + (categories[i] ? labels[i] + '<br>' : '+');
-     }
-     return legdiv;
- };
- Legend.addTo(map);
-
- map.createPane('imagePane');
- map.getPane('imagePane').style.zIndex = 401;
- var LISAInc14 = L.imageOverlay("data/LISAInc14.png", [[40.4768, -74.341], [40.9255, -73.706]],{
-  pane: 'imagePane'
-});
- var LISAInc09 = L.imageOverlay("data/LISAInc09.png", [[40.4768, -74.341], [40.9255, -73.706]],{
-  pane: 'imagePane'
-});
- var LISAInc00 = L.imageOverlay("data/LISAInc00.png", [[40.4768, -74.341], [40.9255, -73.706]],{
-  pane: 'imagePane'
-});
-
-
-
-LISAInc00.setOpacity(0.7);
-LISAInc14.setOpacity(0.7);
-LISAInc09.setOpacity(0.7);
+       for (var i = 0; i < categories.length; i++) {
+           legdiv.innerHTML +=
+               '<i style="background:' + getColor(categories[i]) + '"></i> ' + (categories[i] ? labels[i] + '<br>' : '+');
+       }
+       return legdiv;
+   };
+   Legend.addTo(map);
