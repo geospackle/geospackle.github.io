@@ -14,9 +14,9 @@
 	#Site Styles
 	#Page Styles
 	#Media Queries
-	#Font-Face 
-	#Slider 
-	#FontAwesome 
+	#Font-Face
+	#Slider
+	#FontAwesome
 	#Contact Form*/
 
 /* #Header
@@ -30,10 +30,10 @@ h1 a { text-indent: -9999px; }
 ================================================== */
 
 #main-nav { float: right; }
-#main-nav ul, #main-nav li { list-style: none; padding: 0; margin: 0; display: inline;} 
-#main-nav ul li { float: left; position: relative; }
-#main-nav ul li a {display: inline-block; padding: 48px 10px 34px 10px; margin: 0 5px; text-decoration: none; font-size: 13px; border-bottom: 1px solid transparent; }
-#main-nav ul li:hover {border-bottom: 1px solid #2c88c9 !important; margin-bottom: -1px;}
+#main-nav ul, #main-nav li { list-style: none; padding: 0; margin: 0; display: inline;}
+#main-nav ul li { float: left; position: relative; top: 35px}
+#main-nav ul li a {display: inline-block; padding: 13px 5px 34px 10px; margin: 0 5px; text-decoration: none; font-size: 13px; border-bottom: 1px solid transparent; }
+#main-nav ul li:hover {border-top: 1px solid #2c88c9 !important; margin-bottom: -1px;}
 .current { font-weight: bold !important; color: #444 !important; border-bottom: 3px solid #2c88c9 !important; }
 
 /* #FlexBox for footer at bottom of page
@@ -490,4 +490,3 @@ li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
 #contact #success_page h1 { background: url('../assets/success.gif') left no-repeat; padding-left:22px; }
 
 acronym { border-bottom:1px dotted #ccc; }
-
