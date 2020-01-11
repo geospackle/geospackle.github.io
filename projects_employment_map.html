@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Urban Planning Portfolio | Antti Moelsae</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link rel="stylesheet" href="stylesheets/lightbox.css">
+
+
+
+
+    <!-- CSS
+  ================================================== -->
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="js/jquery.flexslider-min.js"></script>
+    <script src="js/scripts.js"></script>
+
+
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+<body class="home">
+
+
+
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<header id="header" class="site-header" role="banner">
+		<div id="header-inner" class="container sixteen columns over">
+		<hgroup class="one-third column alpha">
+		<div>
+	<h1 id="site-title" class="site-title">
+	<a href="index.html"><img src="images/logo.png" alt="logo" height="40px" style="float: left; position:absolute"></a>
+		</h1>
+	</div>
+		</hgroup>
+		<nav id="main-nav" class="two thirds column omega">
+		<ul>
+		<li id="menu-item-1"  style="padding: 48px 10px 34px 10px">
+		<a href="skills.html">Resume</a>
+		</li>
+		<li class="dropdown" id="menu-item-2"  style="padding: 48px 10px 34px 10px">
+		<a href="#">Projects</a>
+	<div id="dropdown" class="dropdown-content">
+	<a href="projects_plaza.html">NYCDOT Plaza Project</a>
+	<a href="projects_diversity.html">Diversity Research</a>
+	<a href="DiversityMap/index.html" target="_blank">Diversity Webmap</a>
+	<a href="https://github.com/pratt-savi-810/project-anttim1" target="_blank">Topology Repair Tool</a>
+	</div>
+		<li id="menu-item-3"  style="padding: 48px 10px 34px 10px">
+			<a href="mailto:antti.molsa@gmail.com">Contact</a>
+			</li>
+		</ul>
+		</nav>
+		</div>
+		</header>
+
+	<div class="container">
+
+        <article class="sixteen columns main-content">
+					<div class="rubric">
+					<p style="margin:10px 10px 10px 10px">NYCDOT Plaza Graphics and Webmap</p>
+					 </div>
+<br>
+<div>
+	<p class="two-thirds column alpha">I made these graphics to support a plaza research initiative while working at the NYC DOT's Public Space Unit as an intern. Our intern team developed a short survey form and collected data on several of NYC DOT’s plazas. I conducted data analysis using R statistics and put together reports on the findings. </p>
+
+				<a href="images/Employment.pdf" data-lightbox="image-1" data-title="My caption" class="two-thirds column alpha" style="padding-bottom: 30px"><img src="images/PlazaLandUses.png"></a>
+				<p class="one-third column omega">The first spread is a map I made to support the plaza research initiative to bring some context to the statistics. I used ArcGIS to compose a map that shows selected land uses within ¼ mile from the edge of each plaza. The yellow plaza boundaries are sourced from a shapefile I produced. We needed CAD drawings of all the 73 (planned and existing) plazas in the program at the moment, so it was suggested we should also make a plaza boundary shapefile. I exported a shapefile with roadbeds and building footprint into CAD, and our team then drew the plaza outlines on CAD using existing documentation as guidance. When all the drawing was done, I imported the CAD file back into GIS and the shapefile was implemented into a <a href="http://www.nycdot.info/" target="_blank">DOT webmap</a>. </p>
+				<a href="images/PlazaGraphs.png" data-lightbox="image-1" data-title="My caption" class="two-thirds column alpha"><img src="images/PlazaGraphs.png"></a>
+				<p class="one-third column omega">The second spread shows some key statistics for each plaza and a graph that I put together to help visualize the plaza survey data. I ran ANOVA and mosaic plots on the data and used the graphic on the bottom right to visualize parts of the data that stood out statistically. These were then considered to be defining characteristics of each plaza. The difference in size of the icons is proportional to the difference in frequency. The graphic visualizes how long respondents reported usually staying at the plaza, what means of transport they used to get there and what was their relationship to the surrounding neighborhood. </p>
+
+        </article>
+        <!-- End main Content -->
+</div>
+
+    </div>
+
+		<footer>
+
+		<div class="footer-inner container">
+		<div id="footer-base">
+		<div class="container">
+		<div class="eight columns">
+			Frame from <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
+			</div>
+
+			<div class="eight columns far-edge">Design: Antti Moelsae &copy; 2018
+		</div>
+		</div>
+		</div>
+
+		</footer>
+
+<!-- End Document
+================================================== -->
+		<script src="js/lightbox.js"></script>
+
+</body>
+</html>
