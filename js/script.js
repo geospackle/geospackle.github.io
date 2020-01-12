@@ -2,7 +2,9 @@ $(document).ready(function () {
     // Handler for .ready() called.
     $('html, body').animate({
         scrollTop: $('#scrollhere').offset().top
-    }, 1000)
-}).then($('html, body').animate({
+    }, 1000).then(function () {
+    // Handler for .ready() called.
+    $('html, body').animate({
         scrollTop: $('#scrollhere2').offset().top
-    }, 3000))
+    }, 3000)
+})
