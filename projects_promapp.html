@@ -115,7 +115,7 @@
 				<p class="one-third column omega">
 				This piece of SQL adds a point to an existing point geometry to update project codes with multiple locations.
 				The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z-value.
-				Then it checks that the project code exists and updates the geometry with the union of the existing
+				Then we check that the project code exists and update the geometry with the union of the existing
 				geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
 				</p>
 
