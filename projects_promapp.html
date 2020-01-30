@@ -49,7 +49,7 @@
     <hgroup class="one-third column alpha">
     <div>
 	<h1 id="site-title" class="site-title">
-	<img src="DiversityMap/images/logo.png" alt="logo" height="40px" style="float: left; position:absolute; padding:15px">
+	<img src="DiversityMap/images/logo.png" alt="logo" height="10px" style="float: left; position:absolute; padding:15px">
     </h1>
 	</div>
     </hgroup>
@@ -84,12 +84,120 @@
 					 </div>
 <br>
 <div>
+	<p class="two-thirds column alpha" style="">
+		Project managers and marketing department needed improved access to project locations and other project data.
+		I developed ProMapp as a response to this need. Below is a short video showcasing the application and some key pieces of
+		code.
+	</p>
+
 				<a href="images/promapp.mp4" data-fancybox="" data-title="ProMapp" class="two-thirds column alpha" style="padding-bottom: 30px"><img src="images/promapp.JPG"></a>
-				<p class="one-third column omega">Project managers needed improved access to project locations and other project data. I developed ProMapp as a response to this need.
-								The application enables users to locate and filter projects and access project data from internal databases. Project managers can also login and
-								insert new locations into the project database as projects are intiated, so the location data stays up to date.
-							  	ProMapp was built with Python Flask and PostgreSQL/PostGIS in the backend side and Leaflet JavaScript in the front.
-								The application incorporates SQL backend filtering and client side validation for error free and smooth operation.</p>
+				<p class="one-third column omega">
+					The application enables users to locate and filter projects and access project data from internal databases.
+					Project managers can also log in, pull up a list of their yet unmapped projects, and enter the locations into the project database
+					by entering a project code and clicking on the map.
+				  ProMapp was built with Python Flask and PostgreSQL in the backend side and Leaflet JavaScript in the front.
+					The application incorporates SQL backend filtering and client side validation for error free and smooth operation.
+				</p>
+
+				<p class="two-thirds column omega inline-code" style="">
+
+					INSERT INTO projects project_code, geom<br>
+					&emsp;SELECT project_code, <br>
+					&emsp;&emsp;&emsp;&emsp;&emsp;ST_SetSrid(ST_Union(current_geom, st_MakePoint(X, Y)), 4326)<br>
+					&emsp;&emsp;FROM (select ST_Force2D(ST_Astext(geom)) as current_geom <br>
+					&emsp;&emsp;FROM projects WHERE project_code = project_code) sub <br>
+					&emsp;WHERE EXISTS (SELECT 1 FROM projects WHERE project_code = project_code) <br>
+					ON CONFLICT (project_code) DO UPDATE <br>
+					SET geom = excluded.geom
+
+				</p>
+
+				<p class="one-third column omega">
+				This piece of SQL adds a point to an existing point geometry to allow updating projects that have multiple locations.
+				The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z-value.
+				Then it checks that the project code exists and updates the geometry with the union of the existing
+				geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
+				</p>
+
+				<pre class="two-thirds column omega inline-code">
+def admin_login_required(func):
+    @wraps(func)
+        def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated and not current_user.admin:
+            return func(*args, **kwargs, logged_in = False)
+        else:
+            return func(*args, **kwargs, logged_in = True)
+    return decorated_view</pre>
+
+
+
+			<p class="one-third column omega">
+				I needed to trigger a modal if user is not logged in and also add an admin login for editing existing projects. For this end I rewrote the Flask <em>login_required</em>
+				decorator to check for admin rights of the user that is currently logged in and to pass a variable <em>logged_in</em>.
+				The variable is passed on to javascript to trigger the login modal if the user is not logged in or, in this case,
+				not logged in with admin rights.
+			</p>
+<p class="two-thirds column omega"></p>
+
+			<pre class="two-thirds column omega inline-code">
+@app.route('/login_admin', methods=['GET', 'POST'])
+def login_admin():
+    form = LoginForm()
+		if form.validate_on_submit():
+        username = request.form['username']
+        password = request.form['password']
+        admin = check_admin(username)
+        if admin:
+            pw_check = check_user(username, password)
+            if not pw_check:
+                flash('Invalid username or password', 'login_error')
+                return redirect(url_for('edit_project'))
+            else:
+                id = pw_check   # check_user returns id
+                user = AppUser(id, username, password, admin)
+                login_user(user, remember=form.remember_me.data)
+                return redirect(url_for('edit_project'))
+        else:
+            return redirect(url_for('edit_project'))
+    else:
+        return redirect(url_for('edit_project'))</pre>
+
+			<p class="one-third column omega">
+This is the backend side of the login modal. It first checks if the username exists in the <em>admins</em> table, and if true,
+goes on to check the user's credentials, create the user, log in, and redirect to the relevant endpoint. The <em>login_error</em> category in flash messaging is reserved for the modal.
+<em>@admin_login_required</em> decorates the <em>edit_project</em> endpoint to decline access to non-admin users.
+</p>
+<p class="two-thirds column omega"></p>
+
+<pre class="two-thirds column omega inline-code">
+$(function () {
+  Parsley.addValidator('projectCheck', {
+    validateString: function(value) {
+      var send = {
+          id: value,
+        }
+      var url = '/projects/'
+      return $.getJSON(url, send, function(data) {
+      }).then(function(json) {
+        if (!json['features']) {
+        return $.Deferred().reject()
+           }
+         })
+    },
+    messages: {
+               en: 'Project code has not been mapped or does not exist!'
+              }
+  })
+})</pre>
+
+<p class="one-third column omega">
+This is the client side validator that is added to the <em>Project Code</em> field of the main page for viewing projects.
+It uses the flexible <em><a href="https://parsleyjs.org/">Parsley</a></em> library, which also includes an awesome stylesheet.
+The validator checks for an existing project code at the endpoint and if the request fails, the message gets rendered below the
+form field.
+</p>
+<p class="two-thirds column omega"></p>
+
 
         </article>
         <!-- End main Content -->
