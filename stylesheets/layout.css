@@ -22,6 +22,19 @@
 /* #Header
 ================================================== */
 
+.container .inline-code {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left:5px;
+  font-family:courier;
+  background-color: #E8E8E8;
+  box-sizing: border-box;  /*accounts for padding not to interfere with right column*/
+}
+
+#indent {
+  margin-left: 10px;/*or whatever indentation size you want*/
+}
+
 #header { border-bottom: 1px solid #E3E3E8; margin-bottom: 30px; margin-top:-1px}
 h1 a { text-indent: -9999px; }
 
