@@ -40,6 +40,15 @@ h1 a { text-indent: -9999px; }
 
 #site-title { padding-top: 20px; }
 
+.highlight {
+    display: inline-block;
+
+}
+.highlight img:hover {
+    border-width: 1px;
+    border-color: #D3D3D3;
+}
+
 /* #Navigation
 ================================================== */
 
