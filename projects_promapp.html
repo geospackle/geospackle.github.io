@@ -114,7 +114,7 @@
 
 				<p class="one-third column omega">
 				This piece of SQL adds a point to an existing point geometry to update project codes that have multiple locations.
-				The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z-value.
+				The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z value.
 				Then we check that the project code exists and update the geometry with the union of the existing
 				geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
 				</p>
@@ -133,9 +133,8 @@ def admin_login_required(func):
 
 			<p class="one-third column omega">
 				I needed to trigger a modal if user is not logged in and also add an admin login for editing existing projects. For this end I rewrote the Flask <em>login_required</em>
-				decorator to check for admin rights of the user that is currently logged in and to pass a variable <em>logged_in</em>.
-				The variable is passed on to javascript to trigger the login modal if the user is not logged in or, in this case,
-				not logged in with admin rights.
+				decorator to check if the current user is logged in as admin and to pass a variable <em>logged_in</em> if they are.
+				This variable is passed on to javascript to trigger the login modal.
 			</p>
 <p class="two-thirds column omega"></p>
 
@@ -163,7 +162,7 @@ def login_admin():
         return redirect(url_for('edit_project'))</pre>
 
 			<p class="one-third column omega">
-This is the backend side of the login modal. It first checks if the username exists in the <em>admins</em> table, and if true,
+This is the backend side of the login modal. The function first checks if the username exists in the <em>admins</em> table, and if true,
 goes on to check the user's credentials, create the user, log in, and redirect to the relevant endpoint. The <em>login_error</em> category in flash messaging is reserved for the modal.
 <em>@admin_login_required</em> decorates the <em>edit_project</em> endpoint to decline access to non-admin users.
 </p>
@@ -191,9 +190,9 @@ $(function () {
 })</pre>
 
 <p class="one-third column omega">
-This is the client side validator that is added to the <em>Project Code</em> field of the main page for viewing projects.
-It uses the flexible <em><a href="https://parsleyjs.org/">Parsley</a></em> library, which also includes an awesome stylesheet.
-The validator checks for an existing project code at the endpoint and if the request fails, the message gets rendered below the
+This is the client side validator of the <em>Project Code</em> field on the main page for viewing projects.
+It uses the flexible <a href="https://parsleyjs.org/">Parsley</a> library, which also includes an awesome stylesheet.
+The validator checks at the endpoint if the submitted project code exists, and if the request fails, the message gets rendered below the
 form field.
 </p>
 <p class="two-thirds column omega"></p>
