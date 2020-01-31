@@ -22,12 +22,6 @@
 /* #Header
 ================================================== */
 
-img { 
-  border: 3px solid white; 
-} 
-img:hover { 
-  border: 3px solid black; 
-} 
 
 .container .inline-code {
   padding-top: 5px;
@@ -47,12 +41,8 @@ h1 a { text-indent: -9999px; }
 
 #site-title { padding-top: 20px; }
 
-.highlight {
-    border-width:1px
-}
 .highlight img:hover {
-    border-width: 1px;
-    border-color: #D3D3D3;
+    outline: #333 solid 2px;
 }
 
 /* #Navigation
