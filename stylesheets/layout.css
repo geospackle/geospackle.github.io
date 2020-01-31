@@ -41,7 +41,7 @@ h1 a { text-indent: -9999px; }
 #site-title { padding-top: 20px; }
 
 .highlight {
-
+    border-width:1px
 }
 .highlight img:hover {
     border-width: 1px;
