@@ -22,6 +22,13 @@
 /* #Header
 ================================================== */
 
+img { 
+  border: 3px solid white; 
+} 
+img:hover { 
+  border: 3px solid black; 
+} 
+
 .container .inline-code {
   padding-top: 5px;
   padding-bottom: 5px;
