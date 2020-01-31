@@ -43,6 +43,8 @@ h1 a { text-indent: -9999px; }
 
 .highlight {
 	display: inline-block;
+	border-width: 1px;
+	border-color: black;
 }	
 
 .highlight img:hover {
