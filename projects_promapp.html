@@ -129,8 +129,8 @@
 				<pre class="two-thirds column omega inline-code">
 def admin_login_required(func):
     @wraps(func)
-        def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated or not current_user.admin:
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated and not current_user.admin:
             return func(*args, **kwargs, logged_in = False)
         else:
             return func(*args, **kwargs, logged_in = True)
