@@ -91,20 +91,20 @@
 	</p>
 
 				
-				<a href="images/promapp.mp4" data-fancybox="" data-title="ProMapp" class="two-thirds column alpha" style="padding-bottom: 30px">
-				<div class="highlight">
-				<img src="images/promapp.JPG">
-				</div>
-				</a>
-				
-	
-				<p class="one-third column omega">
-					The application lets users locate and filter projects and access project data from internal databases.
-					Project managers can also log in, pull up a list of their yet unmapped projects, and enter the locations into the project database
-					by entering a project code and clicking on the map.
-				  ProMapp was built with Python Flask and PostgreSQL in the backend side and Leaflet JavaScript in the front.
-					The application incorporates SQL backend filtering and client side validation for error free and smooth operation.
-				</p>
+<a href="images/promapp.mp4" data-fancybox="" data-title="ProMapp" class="two-thirds column alpha" style="padding-bottom: 30px">
+<div class="highlight">
+<img src="images/promapp.JPG">
+</div>
+</a>
+
+
+<p class="one-third column omega">
+	The application lets users locate and filter projects and access project data from internal databases.
+	Project managers can also log in, pull up a list of their yet unmapped projects, and enter the locations into the project database
+	by entering a project code and clicking on the map.
+  ProMapp was built with Python Flask and PostgreSQL in the backend side and Leaflet JavaScript in the front.
+	The application incorporates SQL backend filtering and client side validation for error free and smooth operation.
+</p>
 	
 <p class="two-thirds column omega"></p>
 
@@ -114,8 +114,10 @@ function multipointsToPoints(points) {
     if (points[i].geometry) {
       if (points[i].geometry.type === 'MultiPoint') {
         const newPointFeatures = multiToSingles(points[i])
-	points[i] = newPointFeatures[0]          // replace multipoint with first point
-	for (let i = 1; i < newPointFeatures.length; i++) {   // append rest of the points
+	// replace multipoint with first point
+	points[i] = newPointFeatures[0]
+	// append rest of the points
+	for (let i = 1; i < newPointFeatures.length; i++) {   
 	  const newPos = points.length
 	  points[newPos] = newPointFeatures[i]
           }
@@ -141,27 +143,27 @@ function multiToSingles(multiPointFeature) {
 I wrote multipoint support for the <a href='https://github.com/mapbox/supercluster'>supercluster</a>
 </p>
 
-				<p class="two-thirds column omega inline-code" style="">
+<p class="two-thirds column omega inline-code" style="">
 
-					INSERT INTO projects project_code, geom<br>
-					&emsp;SELECT project_code, <br>
-					&emsp;&emsp;&emsp;&emsp;&emsp;ST_SetSrid(ST_Union(current_geom, st_MakePoint(X, Y)), 4326)<br>
-					&emsp;&emsp;FROM (select ST_Force2D(ST_Astext(geom)) as current_geom <br>
-					&emsp;&emsp;FROM projects WHERE project_code = project_code) sub <br>
-					&emsp;WHERE EXISTS (SELECT 1 FROM projects WHERE project_code = project_code) <br>
-					ON CONFLICT (project_code) DO UPDATE <br>
-					SET geom = excluded.geom
+	INSERT INTO projects project_code, geom<br>
+	&emsp;SELECT project_code, <br>
+	&emsp;&emsp;&emsp;&emsp;&emsp;ST_SetSrid(ST_Union(current_geom, st_MakePoint(X, Y)), 4326)<br>
+	&emsp;&emsp;FROM (select ST_Force2D(ST_Astext(geom)) as current_geom <br>
+	&emsp;&emsp;FROM projects WHERE project_code = project_code) sub <br>
+	&emsp;WHERE EXISTS (SELECT 1 FROM projects WHERE project_code = project_code) <br>
+	ON CONFLICT (project_code) DO UPDATE <br>
+	SET geom = excluded.geom
 
-				</p>
+</p>
 
-				<p class="one-third column omega">
-				This piece of SQL adds a point to an existing point geometry to update project codes that have multiple locations.
-				The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z value.
-				Then we check that the project code exists and update the geometry with the union of the existing
-				geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
-				</p>
+<p class="one-third column omega">
+This piece of SQL adds a point to an existing point geometry to update project codes that have multiple locations.
+The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z value.
+Then we check that the project code exists and update the geometry with the union of the existing
+geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
+</p>
 
-				<pre class="two-thirds column omega inline-code">
+<pre class="two-thirds column omega inline-code">
 def admin_login_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
@@ -173,11 +175,11 @@ def admin_login_required(func):
 
 
 
-			<p class="one-third column omega">
-				I needed to trigger a modal if user is not logged in and also add an admin login for editing existing projects. For this end I rewrote the Flask <em>login_required</em>
-				decorator to check if the current user is logged in as admin and to pass a variable <em>logged_in</em> if they are.
-				This variable is passed on to javascript to trigger the login modal.
-			</p>
+<p class="one-third column omega">
+	I needed to trigger a modal if user is not logged in and also add an admin login for editing existing projects. For this end I rewrote the Flask <em>login_required</em>
+	decorator to check if the current user is logged in as admin and to pass a variable <em>logged_in</em> if they are.
+	This variable is passed on to javascript to trigger the login modal.
+</p>
 <p class="two-thirds column omega"></p>
 
 			<pre class="two-thirds column omega inline-code">
