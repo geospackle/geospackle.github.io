@@ -144,7 +144,7 @@ I wrote multipoint support for the <a href='https://github.com/mapbox/superclust
 The function <em>multiPointToSinglePoint()</em> takes the <em>points</em> object, checks for feature type, and if multipoint, 
 passes the feature for processing to <em>multiToSingles()</em>, which makes a deep copy of the original feature, 
 and using the copy as a template, creates an identical point feature for each coordinate pair in
-the original feature geometry and inserts the new coordinates into the new single point feature. 
+the original feature geometry and inserts the coordinate pair into it. 
 The original feature in <em>points</em> is replaced with the first new feature and the subsequent new features get appended to <em>points</em>.
 </p>
 
