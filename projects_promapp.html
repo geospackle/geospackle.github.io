@@ -109,7 +109,7 @@
 <p class="two-thirds column omega"></p>
 
 <pre class="two-thirds column omega inline-code">
-function multipointsToPoints(points) {
+function multiPointToSinglePoint(points) {
   for (let i = 0; i < points.length; i++) {
     if (points[i].geometry) {
       if (points[i].geometry.type === 'MultiPoint') {
@@ -127,11 +127,11 @@ function multipointsToPoints(points) {
   return points
   }
 
-function multiToSingles(multiPointFeature) {
-  let featureTemplate = $.extend( true, {}, multiPointFeature );  // deep copy
+function multiToSingles(mpFeature) {
+  let featureTemplate = $.extend( true, {}, mpFeature );
   let newFeatures = []
-    for (let i = 0;  i < multiPointFeature.geometry.coordinates.length; i++) {
-      const newCoordinates = multiPointFeature.geometry.coordinates[i]
+    for (let i = 0;  i < mpFeature.geometry.coordinates.length; i++) {
+      const newCoordinates = mpFeature.geometry.coordinates[i]
       featureTemplate.geometry.coordinates = newCoordinates
       featureTemplate.geometry.type = 'Point'
       newFeatures.push(featureTemplate)
@@ -142,6 +142,8 @@ function multiToSingles(multiPointFeature) {
 			<p class="one-third column omega">
 I wrote multipoint support for the <a href='https://github.com/mapbox/supercluster'>supercluster</a>
 </p>
+
+<p class="two-thirds column omega"></p>
 
 <p class="two-thirds column omega inline-code" style="">
 
@@ -216,22 +218,22 @@ goes on to check the user's credentials, create the user, log in, and redirect t
 $(function () {
   Parsley.addValidator('projectCheck', {
     validateString: function(value) {
-      var send = {
+      const send = {
           id: value,
-        }
-      var url = '/projects/'
+          }
+      const url = '/projects/'
       return $.getJSON(url, send, function(data) {
-      }).then(function(json) {
-        if (!json['features']) {
-        return $.Deferred().reject()
+        }).then(function(json) {
+          if (!json['features']) {
+          return $.Deferred().reject()
            }
          })
-    },
+      },
     messages: {
                en: 'Project code has not been mapped or does not exist!'
               }
-  })
-})</pre>
+    })
+  })</pre>
 
 <p class="one-third column omega">
 This is the client side validator of the <em>Project Code</em> field on the main page for viewing projects.
