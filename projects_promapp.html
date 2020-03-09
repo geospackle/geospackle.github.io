@@ -164,10 +164,10 @@ The original feature in <em>points</em> is replaced with the first new feature a
 </p>
 
 <p class="one-third column omega">
-This piece of SQL adds a point to an existing point geometry to update project codes that have multiple locations.
+This piece of SQL adds a point to an existing point or multipoint geometry to update project codes that have multiple locations.
 The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z value.
-Then we check that the project code exists and update the geometry with the union of the existing
-geometry and the new user input values. The result is a clean multipoint geometry when merging point and multipoint geometries.
+Then we update the geometry with the union of the existing geometry and the new user input values. 
+The result is a clean multipoint geometry when merging point and multipoint geometries.
 </p>
 
 <pre class="two-thirds column omega inline-code">
