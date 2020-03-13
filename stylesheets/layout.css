@@ -24,7 +24,6 @@
 
 
 .container .inline-code {
-  white-space: nowrap;
   overflow: scroll;
   padding-top: 5px;
   padding-bottom: 5px;
