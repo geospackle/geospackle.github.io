@@ -208,7 +208,8 @@ def login_admin():
                 return redirect(url_for('edit_project'))
             else:
                 id = pw_check   # check_user returns id
-                user = AppUser(id, username, password, admin)
+                user = AppUser(
+		id, username, password, admin)
                 login_user(
 		user, remember=form.remember_me.data)
                 return redirect(url_for('edit_project'))
