@@ -154,10 +154,10 @@ The original feature in <em>points</em> is replaced with the first new feature a
 
 	INSERT INTO projects project_code, geom<br>
 	&emsp;SELECT project_code, <br>
-	&emsp;&emsp;&emsp;&emsp;&emsp;ST_SetSrid(ST_Union(current_geom, st_MakePoint(X, Y)), 4326)<br>
-	&emsp;&emsp;FROM (select ST_Force2D(ST_Astext(geom)) as current_geom <br>
-	&emsp;&emsp;FROM projects WHERE project_code = project_code) sub <br>
-	&emsp;WHERE EXISTS (SELECT 1 FROM projects WHERE project_code = project_code) <br>
+	&emsp;&emsp;&emsp;&emsp;&emsp;ST_SetSrid(ST_Union(current_geom, st_MakePoint(X,&nbspY)),&nbsp4326)<br>
+	&emsp;&emsp;FROM (select ST_Force2D(ST_Astext(geom))&nbspas&nbspcurrent_geom <br>
+	&emsp;&emsp;FROM projects WHERE project_code = project_code)&nbspsub <br>
+	&emsp;WHERE EXISTS (SELECT 1 FROM projects WHERE project_code&nbsp=&nbspproject_code) <br>
 	ON CONFLICT (project_code) DO UPDATE <br>
 	SET geom = excluded.geom
 
@@ -174,10 +174,13 @@ The result is a clean multipoint geometry when merging point and multipoint geom
 def admin_login_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated and not current_user.admin:
-            return func(*args, **kwargs, logged_in = False)
+        if not current_user.is_authenticated and \
+	    not current_user.admin:
+            return func(
+	    *args, **kwargs, logged_in = False)
         else:
-            return func(*args, **kwargs, logged_in = True)
+            return func(
+	    *args, **kwargs, logged_in = True)
     return decorated_view</pre>
 
 
@@ -200,7 +203,8 @@ def login_admin():
         if admin:
             pw_check = check_user(username, password)
             if not pw_check:
-                flash('Invalid username or password', 'login_error')
+                flash('Invalid username or password',
+		        'login_error')
                 return redirect(url_for('edit_project'))
             else:
                 id = pw_check   # check_user returns id
