@@ -109,43 +109,38 @@
 <p class="two-thirds column omega"></p>
 
 <pre class="two-thirds column omega inline-code">
-function multiPointToSinglePoint(points) {
-  for (let i = 0; i < points.length; i++) {
-    if (points[i].geometry) {
-      if (points[i].geometry.type === 'MultiPoint') {
-        const newPointFeatures = multiToSingles(points[i])
-	// replace multipoint with first point
-	points[i] = newPointFeatures[0]
-	// append rest of the points
-	for (let i = 1; i < newPointFeatures.length; i++) {   
-	  const newPos = points.length
-	  points[newPos] = newPointFeatures[i]
-          }
-        }
-      }
+function multiToSingles(multiPointFeature) {
+    let featureTemplate = $.extend(true, {}, multiPointFeature);
+    let newFeatures = [];
+    for (let i = 0;  i < multiPointFeature.geometry.coordinates.length; i++) {
+        const newCoordinates = multiPointFeature.geometry.coordinates[i];
+	featureTemplate.geometry.coordinates = newCoordinates;
+	featureTemplate.geometry.type = 'Point';
+	newFeatures.push(featureTemplate);
     }
-  return points
-  }
+    return newFeatures;
+}
 
-function multiToSingles(mpFeature) {
-  let featureTemplate = $.extend( true, {}, mpFeature );
-  let newFeatures = []
-    for (let i = 0;  i < mpFeature.geometry.coordinates.length; i++) {
-      const newCoordinates = mpFeature.geometry.coordinates[i]
-      featureTemplate.geometry.coordinates = newCoordinates
-      featureTemplate.geometry.type = 'Point'
-      newFeatures.push(featureTemplate)
+let clusters = [];
+for (let i = 0; i < points.length; i++) {
+    if (!points[i].geometry) {
+	continue;
+    } else if (points[i].geometry.type === 'MultiPoint') {
+	const newPointFeatures = multiToSingles(points[i]);
+	for (let j=0; j < newPointFeatures.length; j++) {
+	    clusters.push(createPointCluster(newPointFeatures[j], i));
+	}
+    } else {
+	clusters.push(createPointCluster(points[i], i));
     }
-  return newFeatures
-  }</pre>
+}
+</pre>
 
 			<p class="one-third column omega">
 I wrote multipoint support for the <a href='https://github.com/mapbox/supercluster' target="_blank">supercluster</a> library. 
-The function <em>multiPointToSinglePoint()</em> takes the <em>points</em> object, checks for feature type, and if multipoint, 
-passes the feature for processing to <em>multiToSingles()</em>, which makes a deep copy of the original feature, 
+The function <em>multiToSingles()</em> makes a deep copy of the original feature, 
 and using the copy as a template, creates an identical point feature for each coordinate pair in
-the original feature geometry and inserts the coordinate pair into it. 
-The original feature in <em>points</em> is replaced with the first new feature and the subsequent new features get appended to <em>points</em>.
+the original multipoint feature geometry.
 </p>
 
 <p class="two-thirds column omega"></p>
