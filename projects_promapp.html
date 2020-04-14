@@ -149,7 +149,8 @@ I wrote multipoint support for the <a href='https://github.com/mapbox/superclust
 The function <em>multiToSingles()</em> makes a deep copy of the original feature, 
 and using the copy as a template, creates an identical point feature for each coordinate pair in
 the original multipoint feature geometry. If a point feature is of type <em>multipoint</em>, 
-each point in it gets added to clusters as a separate poiont feature. The rest of the source code could remain untouched.
+each point in it gets added to clusters as a separate point feature. The new features are added to the clusters array with the 
+rest of the (single point) features.
 </p>
 
 <p class="two-thirds column omega"></p>
