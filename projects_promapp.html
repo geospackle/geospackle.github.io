@@ -109,7 +109,7 @@
 <p class="two-thirds column omega"></p>
 
 <pre class="two-thirds column omega inline-code">
-function multiToSingles(multiPointFeature) {
+function multiToSingles(mpFeature) {
     const featureTemplate = {
         'type': 'Feature',
         'properties': {
@@ -118,9 +118,9 @@ function multiToSingles(multiPointFeature) {
         }
     };
     const newFeatures = [];
-    for (let i = 0;  i < multiPointFeature.geometry.coordinates.length; i++) {
-        const newCoordinates = multiPointFeature.geometry.coordinates[i];
-        const newProperties = multiPointFeature.properties[i];
+    for (let i = 0;  i < mpFeature.geometry.coordinates.length; i++) {
+        const newCoordinates = mpFeature.geometry.coordinates[i];
+        const newProperties = mpFeature.properties[i];
         featureTemplate.geometry.properties = newProperties;
         featureTemplate.geometry.coordinates = newCoordinates;
         featureTemplate.geometry.type = 'Point';
