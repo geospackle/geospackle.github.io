@@ -110,13 +110,21 @@
 
 <pre class="two-thirds column omega inline-code">
 function multiToSingles(multiPointFeature) {
-    let featureTemplate = $.extend(true, {}, multiPointFeature);
-    let newFeatures = [];
+    const featureTemplate = {
+        'type': 'Feature',
+        'properties': {
+        },
+        'geometry': {
+        }
+    };
+    const newFeatures = [];
     for (let i = 0;  i < multiPointFeature.geometry.coordinates.length; i++) {
         const newCoordinates = multiPointFeature.geometry.coordinates[i];
-	featureTemplate.geometry.coordinates = newCoordinates;
-	featureTemplate.geometry.type = 'Point';
-	newFeatures.push(featureTemplate);
+        const newProperties = multiPointFeature.properties[i];
+        featureTemplate.geometry.properties = newProperties;
+        featureTemplate.geometry.coordinates = newCoordinates;
+        featureTemplate.geometry.type = 'Point';
+        newFeatures.push(featureTemplate);
     }
     return newFeatures;
 }
