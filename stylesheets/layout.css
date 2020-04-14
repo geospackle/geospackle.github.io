@@ -33,7 +33,7 @@
   font-size:13px;
   background-color: #E8E8E8;
   width: 50% !important;
-  min-width: 350px;
+  min-width: 300px !important;
   margin-right:5% !important;
   margin-left:5% !important;
   box-sizing: border-box;  /*accounts for padding not to interfere with right column*/
