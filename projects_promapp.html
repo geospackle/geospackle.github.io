@@ -119,12 +119,13 @@ function multiToSingles(mpFeature) {
     };
     const newFeatures = [];
     for (let i = 0;  i < mpFeature.geometry.coordinates.length; i++) {
+        const newFeature = JSON.parse(JSON.stringify(featureTemplate));
         const newCoordinates = mpFeature.geometry.coordinates[i];
-        const newProperties = mpFeature.properties[i];
-        featureTemplate.geometry.properties = newProperties;
-        featureTemplate.geometry.coordinates = newCoordinates;
-        featureTemplate.geometry.type = 'Point';
-        newFeatures.push(featureTemplate);
+        const newProperties = mpFeature.properties;
+        newFeature.geometry.properties = newProperties;
+        newFeature.geometry.coordinates = newCoordinates;
+        newFeature.geometry.type = 'Point';
+        newFeatures.push(newFeature);
     }
     return newFeatures;
 }
