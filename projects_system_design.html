@@ -46,7 +46,7 @@
 
 
 <header id="header" class="site-header" role="banner">
-      <div id="headerContainer"></div>
+      <div id="headerContainer" style="height:101px"></div>
 
     <script>
       // Fetch and inject the header content
@@ -67,8 +67,7 @@
 					 </div>
 <br>
 <div>
-	<p class="two-thirds column alpha" style="">
-  The below diagram describes a general design for a backfill subsystem to replace a legacy service where transformations are live computed on each request. The new system leverages the legacy system's code but stores the transformed data for quick retrieval. This poses a few challenges as data needs to be backfilled constantly, triggered on events via SNS topic or Github Action CI. 
+	<p class="two-thirds column alpha">
 	</p>
 
 				
@@ -77,8 +76,29 @@
 <img src="images/backfill_design.png">
 </div>
 </a>
+	<p class="one-third column omega">
+  This diagram describes a general design for a backfill subsystem to replace a legacy service where transformations are live computed on each request. The new system leverages the legacy system's code but stores the transformed data for quick retrieval. This poses a few challenges as data needs to be backfilled constantly, triggered on events via SNS topic or Github Action CI. 
+	</p>
 
 
+<a href="images/dynamo_model.png" data-fancybox="" data-title="DynamoModel" class="two-thirds column alpha" style="padding-bottom: 30px">
+<div class="highlight">
+<img src="images/dynamo_model.png">
+</div>
+</a>
+	<p class="one-third column omega">
+  DynamoDB is an excellent candidate for a timeseries data store of IoT data because of its horizontal scalability and low-latency reads and writes, regardless of table size. However, data access patterns need to be hashed out in advance since they are "baked-in" in the data model. For this use case the requirements were thankfully simple:
+  <br>  1. Fetch data over a time range for SensorID and data version. 
+  <br>  2. Get all available metadata for a DeviceID or SensorID.
+  <br>  3. List all available sensors for a DeviceID.
+  <br>  4. List all data versions for a SensorID.
+  <br>
+  <br>
+
+  A secondary index is used to model a one-to-many relationship for metadata-data as metadata will always be identical for a device/sensor/version combination. 
+  <br>
+  Ingestion polls for new data every 10 minutes. This being a write-heavy system, 1 second frequency data is stored as a series of 600 values on each row in order to save write capacity as each write costs 1 WCU up to 1kB.
+	</p>
 
         </article>
         <!-- End main Content -->
@@ -95,7 +115,7 @@
 			Frame: <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
 			</div>
 
-			<div class="eight columns far-edge">Antti Moelsae &copy; 2023
+			<div class="eight columns far-edge">Antti Moelsae &copy; 2024
 		</div>
 		</div>
 		</div>
