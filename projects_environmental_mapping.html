@@ -45,48 +45,25 @@
 	================================================== -->
 
 <header id="header" class="site-header" role="banner">
-    <div id="header-inner" class="container sixteen columns over">
-    <hgroup class="one-third column alpha">
-    <div>
-	<h1 id="site-title" class="site-title">
-	<img src="DiversityMap/images/logo.png" alt="logo" height="40px" style="float: left; position:absolute; padding:15px">
-    </h1>
-	</div>
-    </hgroup>
-    <nav id="main-nav" class="two thirds column omega">
-    <ul>
-    <li id="menu-item-1"  style="padding: 48px 10px 34px 10px">
-    <a href="skills.html">Resume</a>
-    </li>
-    <li class="dropdown" id="menu-item-2"  style="padding: 48px 10px 34px 10px">
-    <a href="#">Projects</a>
-		<div id="dropdown" class="dropdown-content">
-		<a href="projects_census_godzilla.html">Census Godzilla</a>
-		<a href="https://github.com/geospackle/better-census-api" target="_blank">Better Census API</a>
-		<a href="https://www.linkedin.com/company/gofish-app/" target="_blank">GoFish Data Collector</a>
-		<a href="projects_promapp.html">Project Mapper</a>
-		<a href="projects_environmental_mapping.html">Environmental Work</a>
-		<a href="projects_diversity.html">Diversity Research</a>
-		<a href="DiversityMap/index.html" target="_blank">Diversity Webmap</a>
-		<a href="projects_plaza.html">NYCDOT Plaza Project</a>
-		<a href="https://github.com/geospackle/topology-repair" target="_blank">Topology Repair Tool</a>
-		</div>
-		<li id="menu-item-3"  style="padding: 48px 10px 34px 10px">
-			<a href="mailto:antti.molsa@gmail.com">Contact</a>
-			</li>
-    </ul>
-    </nav>
-    </div>
-    </header>
+      <div id="headerContainer" style="height:101px"></div>
 
-	<div class="container">
+    <script>
+      // Fetch and inject the header content
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("headerContainer").innerHTML = html;
+        })
+        .catch((error) => console.error("Error fetching header:", error));
+    </script>
+</header>
 
+<div class="container">
         <article class="sixteen columns main-content">
 					<div class="rubric">
 					<p style="margin:10px 10px 10px 10px">Environmental Mapping</p>
 					 </div>
 <br>
-<div>
 
 	<p class="two-thirds column alpha">This is a selection of environmental and urban planning graphics that I developed while working at AKRF.</p>
 
@@ -139,9 +116,6 @@
 
         </article>
         <!-- End main Content -->
-</div>
-
-    </div>
 
 		<footer>
 

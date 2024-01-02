@@ -49,49 +49,31 @@
 	<!-- Primary Page Layout
 	================================================== -->
 
-	<header id="header" class="site-header" role="banner">
-    <div id="header-inner" class="container sixteen columns over">
-    <hgroup class="one-third column alpha">
-    <div>
-	<h1 id="site-title" class="site-title">
-	<img src="DiversityMap/images/logo.png" alt="logo" height="40px" style="float: left; position:absolute; padding:15px">
-    </h1>
-	</div>
-    </hgroup>
-    <nav id="main-nav" class="two thirds column omega">
-    <ul>
-    <li id="menu-item-1"  style="padding: 48px 10px 34px 10px">
-    <a href="skills.html">Resume</a>
-    </li>
-    <li class="dropdown" id="menu-item-2"  style="padding: 48px 10px 34px 10px">
-    <a href="#">Projects</a>
-	<div id="dropdown" class="dropdown-content">
-		<div id="dropdown" class="dropdown-content">
-		<a href="projects_promapp.html">Project Mapping App</a>
-		<a href="projects_environmental_mapping.html">Environmental Work</a>
-		<a href="projects_diversity.html">Diversity Research</a>
-		<a href="DiversityMap/index.html" target="_blank">Diversity Webmap</a>
-		<a href="projects_plaza.html">NYCDOT Plaza Project</a>
-		<a href="https://github.com/geospackle/topology-repair" target="_blank">Topology Repair Tool</a>
-	</div>
-		<li id="menu-item-3"  style="padding: 48px 10px 34px 10px">
-			<a href="mailto:antti.molsa@gmail.com">Contact</a>
-			</li>
-    </ul>
-    </nav>
-    </div>
+    <header>
+      <div id="headerContainer" style="height:101px"></div>
     </header>
+
+    <script>
+      // Fetch and inject the header content
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("headerContainer").innerHTML = html;
+        })
+        .catch((error) => console.error("Error fetching header:", error));
+    </script>
 
 	<div class="container">
 
         <article class="sixteen columns main-content">
         <h1></h1>
 
-				<p class="two-thirds column alpha">Due to the ubiquity of identitity theft my complete resume is available only <a href="mailto:antti.molsa@gmail.com">upon request</a>.</p>
+				<p class="two-thirds column alpha">Due to the ubiquity of identitity theft my complete resume is available <a href="mailto:antti.molsa@gmail.com">upon request</a>.</p>
 
-				<p class="two-thirds column alpha">I have a BA in Social and Cultural Anthropology and Master’s degrees in Liberal Studies and Urban Planning. I currently work with AKRF, Inc. as a Geospatial Analyst in the environmental field. I have completed internships with CBOs in housing and community development and at the NYCDOT's Public Space Unit, where I did program support, research, data analysis and GIS tasks. </p>
-				<p class="two-thirds column alpha">My technical expertise are in programming, data management, spatial data analysis, and cartography. I have gathered experience in the planning field in environmental planning, public space planning, housing, and community development. I have also engaged in graduate level research in social and humanistic sciences.</p>
-				<p class="two-thirds column alpha">I am fluent in the following programming languages and solutions: Python, JavaScript, R, Flask, PostgreSQL, AWS, ArcGIS (Pro), QGIS, Adobe CS Suite, AutoCAD, MicroStation, SketchUp.</p>
+				<p class="two-thirds column alpha">I have degrees in Social and Cultural Anthropology (BA), Liberal Studies (Sociology) (MA), and Urban Planning (MA). Before starting as a Data/Backend engineer at Nautilus Labs, I worked as a Geospatial Developer and Analyst in the environmental field.</p>
+				<p class="two-thirds column alpha">In my software engineering career I have gotten involved across the backend stack, including data system design, NoSQL database design, fortifying APIs, and developing intricate continuous integration setups, while actively advocating for projects and technologies that I strongly believe in.</p> 
+				<p class="two-thirds column alpha"> I excel in identifying straightforward, scalable, and robust solutions tailored to the specific context of a problem. Unexpectedly, the skills I honed prior to starting my engineering journey have become the distinguishing factors in my role as a developer. My proficiency in research, gained while completing PhD level coursework at CUNY Graduate Center, coupled with grit when it's time to pick up a book for a deep dive, and a comprehensive grasp of data from my experience in geospatial analysis, have demarcated my programming career.</p>
+				<p class="two-thirds column alpha">My current tech stack includes Python, Go, Typescript, AWS Infra (Lambda, SNS/SQS, ECS, Cloudwatch...), RabbitMQ, Postgres, DynamoDB, Serverless, Docker, Github Actions, CircleCI, DataDog. </p>
 
 
 
