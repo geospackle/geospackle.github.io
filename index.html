@@ -47,15 +47,14 @@
 
 	<script src="https://code.jquery.com/jquery-1.8.3.min.js" type="text/JavaScript"></script>
   <script>
-  // Function to fade the page into white
+
   function fadeIntoWhite() {
     var fadeContainer = document.getElementById('fadeContainer');
     fadeContainer.style.opacity = '1';
-    document.body.style.overflow = 'hidden'; // Optional: Disable scrolling during the fade
+    document.body.style.overflow = 'hidden'; // disable scrolling during the fade
   }
 
-  // Call the function after a certain delay or on some event
-  setTimeout(fadeIntoWhite, 5500); // Example: fade after 2 seconds
+  setTimeout(fadeIntoWhite, 6500);
 </script>
 <script type="text/javascript">
 function delayer(){
@@ -64,7 +63,7 @@ function delayer(){
 </script>
 
 </head>
-<body onLoad="setTimeout('delayer()', 7000)">
+<body onLoad="setTimeout('delayer()', 8000)">
 
 
 <div id="fadeContainer"></div>
