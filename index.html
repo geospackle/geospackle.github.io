@@ -4,7 +4,25 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #fadeContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease-in-out;
+      z-index: 9999;
+    }
+  </style>
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
@@ -28,46 +46,28 @@
 
 
 	<script src="https://code.jquery.com/jquery-1.8.3.min.js" type="text/JavaScript"></script>
+  <script>
+  // Function to fade the page into white
+  function fadeIntoWhite() {
+    var fadeContainer = document.getElementById('fadeContainer');
+    fadeContainer.style.opacity = '1';
+    document.body.style.overflow = 'hidden'; // Optional: Disable scrolling during the fade
+  }
 
+  // Call the function after a certain delay or on some event
+  setTimeout(fadeIntoWhite, 5500); // Example: fade after 2 seconds
+</script>
+<script type="text/javascript">
+function delayer(){
+    window.location = "skills.html"
+}
+</script>
 
 </head>
-<body>
+<body onLoad="setTimeout('delayer()', 7000)">
 
-<header id="header" class="site-header" role="banner">
-    <div id="header-inner" class="container sixteen columns over">
-    <hgroup class="one-third column alpha">
-    <div>
-	<h1 id="site-title" class="site-title">
-	<img src="DiversityMap/images/logo.png" alt="logo" height="40px" style="float: left; position:absolute; padding:15px">
-    </h1>
-	</div>
-    </hgroup>
-    <nav id="main-nav" class="two thirds column omega">
-    <ul>
-    <li id="menu-item-1"  style="padding: 48px 10px 34px 10px">
-    <a href="skills.html">Resume</a>
-    </li>
-    <li class="dropdown" id="menu-item-2"  style="padding: 48px 10px 34px 10px">
-    <a href="#">Projects</a>
-		<div id="dropdown" class="dropdown-content">
-		<a href="projects_census_godzilla.html">Census Godzilla</a>
-		<a href="https://github.com/geospackle/better-census-api" target="_blank">Better Census API</a>
-		<a href="https://www.linkedin.com/company/gofish-app/" target="_blank">GoFish Data Collector</a>
-		<a href="projects_promapp.html">Project Mapper</a>
-		<a href="projects_environmental_mapping.html">Environmental Work</a>
-		<a href="projects_diversity.html">Diversity Research</a>
-		<a href="DiversityMap/index.html" target="_blank">Diversity Webmap</a>
-		<a href="projects_plaza.html">NYCDOT Plazas</a>
-		<a href="https://github.com/geospackle/topology-repair" target="_blank">Topology Repair Tool</a>
-		</div>
-		<li id="menu-item-3"  style="padding: 48px 10px 34px 10px">
-			<a href="mailto:antti.molsa@gmail.com">Contact</a>
-			</li>
-    </ul>
-    </nav>
-    </div>
-    </header>
 
+<div id="fadeContainer"></div>
 
 <div class="container">
 
@@ -75,7 +75,7 @@
 
 <a href="skills.html">
       <center><div class="jingle">
-			<p style="margin:10px 10px 10px 10px">Software engineer beguiled by data</p>
+			<p style="margin:10px 10px 10px 10px">Software engineer beguiled by data.</p>
       —<br>
 			<p style="margin:10px 10px 10px 10px">Find the simple solution.</p>
 			<p style="margin:10px 10px 10px 10px">Dig in. Dig deep.</p>
@@ -86,21 +86,6 @@
 	</div>
 
 
-		<footer>
-
-		<div class="footer-inner container">
-		<div id="footer-base">
-		<div class="container">
-		<div class="eight columns">
-		Frame: <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
-		</div>
-
-		<div class="eight columns far-edge">Antti Moelsae &copy; 2020
-		</div>
-		</div>
-		</div>
-
-		</footer>
 
 
 <!-- End Document
