@@ -74,7 +74,7 @@
 	</p>
 
 				
-<a href="images/promapp.mp4" data-fancybox="" data-title="ProMapp" class="two-thirds column omega" style="padding-bottom: 30px">
+<a href="images/promapp.mp4" data-fancybox="" data-title="ProMapp" class="two-thirds column omega">
 <div class="highlight">
 <img src="images/promapp.JPG">
 </div>
@@ -89,6 +89,7 @@
 	The application incorporates SQL backend filtering and client side validation for error free and smooth operation.
 </p>
 	
+  <hr class="two-thirds column alpha" style="border-top: 2px solid #bbb; padding: 10px">
 <p class="two-thirds column omega"></p>
 
 <pre class="two-thirds column omega inline-code">
@@ -128,7 +129,7 @@ for (let i = 0; i < points.length; i++) {
 }
 </pre>
 
-			<p class="one-third column omega">
+			<p class="one-third column omega" style="padding-bottom: 30px">
 I wrote multipoint support for the <a href='https://github.com/mapbox/supercluster' target="_blank">supercluster</a> library. 
 The function <em>multiToSingles()</em> creates a single point geojson feature for each coordinate pair in
 the original multipoint feature geometry. The new features get added to the <em>clusters</em> array with the 
@@ -150,7 +151,7 @@ rest of the original (single point) features.
 
 </p>
 
-<p class="one-third column omega">
+<p class="one-third column omega" style="padding-bottom: 30px">
 This piece of SQL adds a point to an existing point or multipoint geometry to update project codes that have multiple locations.
 The subquery fetches the existing geometry and forces it to 2D to avoid an error if existing geometry has a Z value.
 Then we update the geometry with the union of the existing geometry and the new user input values. 
@@ -172,7 +173,7 @@ def admin_login_required(func):
 
 
 
-<p class="one-third column omega">
+<p class="one-third column omega" style="padding-bottom: 30px">
 	I needed to trigger a modal if user is not logged in and also add an admin login for editing existing projects. For this end I rewrote the Flask <em>login_required</em>
 	decorator to check if the current user is logged in as admin and to pass a variable <em>logged_in</em> if they are.
 	This variable is passed on to javascript to trigger the login modal.
@@ -205,7 +206,7 @@ def login_admin():
     else:
         return redirect(url_for('edit_project'))</pre>
 
-			<p class="one-third column omega">
+			<p class="one-third column omega" style="padding-bottom: 30px" >
 This is the backend side of the login modal. The function first checks if the username exists in the <em>admins</em> table, and if true,
 goes on to check the user's credentials, create the user, log in, and redirect to the relevant endpoint. The <em>login_error</em> category in flash messaging is reserved for the modal.
 <em>@admin_login_required</em> decorates the <em>edit_project</em> endpoint to decline access to non-admin users.
@@ -234,7 +235,7 @@ $(function () {
     })
   })</pre>
 
-<p class="one-third column omega">
+<p class="one-third column omega" style="padding-bottom: 30px">
 This is the client side validator of the <em>Project Code</em> field on the main page for viewing projects.
 It uses the flexible <a href="https://parsleyjs.org/">Parsley</a> library, which also includes an awesome stylesheet.
 The validator checks at the endpoint if the submitted project code exists, and if the request fails, the message gets rendered below the
@@ -255,7 +256,7 @@ form field.
 		<div id="footer-base">
 		<div class="container">
 		<div class="eight columns">
-			Frame: <a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
+			<a href="http://www.opendesigns.org/design/icebrrrg/">Icebrrg Website Template</a>
 			</div>
 
 			<div class="eight columns far-edge">Antti Moelsae &copy; 2020
