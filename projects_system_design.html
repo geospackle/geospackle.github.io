@@ -77,27 +77,59 @@
 </div>
 </a>
 	<p class="one-third column omega">
-  This diagram describes a general design for a backfill system of a feature service that consumes data at two frequencies. Lower frequency data is less accurate but highly available and consistent. Higher frequency data has frequent outages and anomalies. Therefore the data needs to be backfilled regularly as low frequency data is ingested. Targeted backfills are also executed when there are code changes impacting transformations.
+  	This diagram describes a general design for a backfill system of a feature service 
+	that consumes data at two frequencies. Lower frequency data is less accurate but highly
+	available and consistent. Higher frequency data has frequent outages and anomalies. 
+	Therefore the data needs to be backfilled regularly as low frequency data is ingested. 
+	Targeted backfills are also executed when there are code changes impacting transformations.
 	</p>
 
   <hr class="two-thirds column alpha" style="border-top: 2px solid #bbb; padding: 10px">
   <br>
+
+<a href="images/resampler.png" data-fancybox="" data-title="ResampleSystem" class="two-thirds column alpha" >
+<div class="highlight">
+<img src="images/resampler.png">
+</div>
+</a>
+	<p class="one-third column omega">
+	Raw data is ingested frequently in batches and stored into the raw layer in the data lake.
+	Pre-processed (e.g. hourly resampled) data is stored into the clean layer. <br>
+	Resampling might have been easily solved by scheduling the workload to run once per hour,
+	but resampling needs to be triggered as soon as data is available for two reasons:
+	
+	<br> 1. Dashboards need the current hour's first data point as a "placeholder"
+	<br> 2. Data outages are frequent and resampled data should be made available as soon
+		as the data source is back online
+
+	<br>
+	<br>
+	
+	</p>
+
+  <hr class="two-thirds column alpha" style="border-top: 2px solid #bbb; padding: 10px">
+  <br>
+
 <a href="images/dynamo_model.png" data-fancybox="" data-title="DynamoModel" class="two-thirds column alpha" >
 <div class="highlight">
 <img src="images/dynamo_model.png">
 </div>
 </a>
 	<p class="one-third column omega">
-  DynamoDB is an excellent candidate for a timeseries data store of IoT data because of its horizontal scalability and low-latency reads and writes, regardless of table size. However, data access patterns need to be hashed out in advance since they are baked in the  NoSQL data model. For this use case the requirements were simple:
-  <br>  1. Fetch data over a time range for SensorID and data version. 
-  <br>  2. Get all available metadata for a DeviceID or SensorID.
-  <br>  3. List all available sensors for a DeviceID.
-  <br>  4. List all data versions for a SensorID.
-  <br>
-  <br>
+  	DynamoDB is an excellent candidate for a timeseries data store of IoT data because of its horizontal 
+  	scalability and low-latency reads and writes, regardless of table size. However, data access patterns 
+	need to be hashed out in advance since they are baked in the  NoSQL data model. 
+	For this use case the requirements were simple:
+  	<br>  1. Fetch data over a time range for SensorID and data version. 
+  	<br>  2. Get all available metadata for a DeviceID or SensorID.
+  	<br>  3. List all available sensors for a DeviceID.
+  	<br>  4. List all data versions for a SensorID.
+  	<br>
+  	<br>
 
-  A secondary index is used to model a one-to-many relationship for metadata-to-data. Metadata will always be identical for a device/sensor/version combination. 
-  <br>
+ 	A secondary index is used to model a one-to-many relationship for metadata-to-data. 
+	Metadata will always be identical for a device/sensor/version combination. 
+  	<br>
 
         </article>
         <!-- End main Content -->
