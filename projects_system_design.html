@@ -81,11 +81,11 @@
 		This serverless event driven system used DynamoDB as event bus, and topics for triggering downstream services for object creation.
 		Some services used events and topics, some wrote directly to the database.
 
-		<br>The issue that forced the rewrite arose from adding scheduled object creation. This led to building a completely 
+		<br><br>The issue that pushed for the rewrite arose from adding scheduled object creation. This led to building a completely 
 		separate flow from the original flow, duplicating business logic and adding database calls and calls to a 3rd party API 
 		each time the schedule was triggered.
 
-		<br>A pure event-driven system was deemed too complex for the use case (especially with distributed rollbacks), 
+		<br><br>A pure event-driven system was deemed too complex for the use case (especially with distributed rollbacks), 
 		so we rather embraced the semi-monolithic nature. To bring clarity to the system, a shared library was written to unify 
 		resource creation. Strategy pattern was used for resource creation based on payload. The interface was 
 		implemented with pydantic for deserialization and serialization. Services now had a singular interface and one way of writing 
